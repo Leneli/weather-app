@@ -1,0 +1,23 @@
+const COLOR_WHITE = '#ffffff';
+const COLOR_BLACK = '#000000';
+
+const COLOR_WHITE_20 = '#ffffff20';
+const COLOR_WHITE_40 = '#ffffff40';
+
+const BLUE_01 = '#498CEC';
+const BLUE_02 = '#7290B9';
+const BLUE_03 = '#272f40';
+
+const COLOR_WEATHER_SUN = BLUE_01;
+const COLOR_WEATHER_RAIN = BLUE_02;
+const COLOR_WEATHER_NIGHT = BLUE_03;
+
+export {
+  COLOR_WHITE,
+  COLOR_BLACK,
+  COLOR_WHITE_20,
+  COLOR_WHITE_40,
+  COLOR_WEATHER_SUN,
+  COLOR_WEATHER_RAIN,
+  COLOR_WEATHER_NIGHT,
+};

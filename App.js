@@ -1,21 +1,32 @@
+import React, { useState } from 'react';
+import AppLoading from 'expo-app-loading';
+import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { WeatherState } from './src/context/WeatherState';
+import { Body } from './src/components/Body';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+async function loadingApplication () {
+  await Font.loadAsync({
+    'PTSans': require('./assets/fonts/PTSans-Regular.ttf'),
+    'Lato': require('./assets/fonts/Lato-Regular.ttf'),
+  });
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  const [loaded, setLoaded] = useState(false);
+  const handleFinish = () => setLoaded(true);
+  const logError = err => console.log('Loading Application Error', err);
+
+  if (!loaded) {
+    return <AppLoading startAsync={loadingApplication} onFinish={handleFinish} onError={logError} />;
+  }
+
+  return (
+    <>
+      <StatusBar style="light" />
+      <WeatherState>
+        <Body />
+      </WeatherState>
+    </>
+  );
+}
