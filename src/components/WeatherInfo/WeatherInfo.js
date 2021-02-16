@@ -9,7 +9,7 @@ const WeatherInfo = () => {
 
   return (
     <View style={styles.wrapper}>
-      {weatherDetails.map(detail => <WeatherInfoItem key={detail.key} { ...detail } />)}
+      {weatherDetails.map((detail, i) => <WeatherInfoItem key={`el_${i}`} { ...detail } />)}
     </View>
   );
 };

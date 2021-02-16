@@ -1,75 +1,30 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { View } from 'react-native';
-import { HeaderView } from './HeaderView';
-import { Location } from '../Location';
-import { styles } from './styles';
-import weatherAPI from '../../api/weather';
-import myLocationApi from '../../api/myLocation';
+import React, { useContext } from 'react';
+import { View, Text } from 'react-native';
 import { WeatherContext } from '../../context/weatherContext';
+import { LocationSVG } from '../SVG';
+import { Switch } from '../Switch';
+import { LButton } from '../LButton';
+import { TEMPERATURE_UNITS } from '../../constants/temperatureUnits';
+import { styles } from './styles';
 
 const Header = () => {
-  const {
-    city,
-    changeCity,
-    unitTemperature,
-    updateWeatherType,
-    updateWeatherMain,
-    updateWeatherDetails,
-  } = useContext(WeatherContext);
-  const [isSearch, setIsSearch] = useState(false);
-  const [viewHeight, setViewHeight] = useState('auto');
-
-  const showSearch = () => setIsSearch(true);
-  const onLayout = e => setViewHeight(e.nativeEvent.layout.height);
-
-  const handleSearch = async (location) => {
-    setIsSearch(false);
-
-    if (!location) return;
-
-    try {
-      const {
-        weatherType,
-        weatherMain,
-        weatherDetails
-      } = await weatherAPI({ location, units: unitTemperature });
-
-      updateWeatherType(weatherType);
-      updateWeatherMain(weatherMain);
-      updateWeatherDetails(weatherDetails);
-    } catch (error) {
-      console.log('weather API error', error);
-    }
-  };
-
-  const handleMyLocation = async () => {
-    try {
-      const myLocation = await myLocationApi({ units: unitTemperature });
-      const { city: myCity, weatherType, weatherMain, weatherDetails } = myLocation;
-
-      changeCity(myCity);
-      updateWeatherType(weatherType);
-      updateWeatherMain(weatherMain);
-      updateWeatherDetails(weatherDetails);
-    } catch (error) {
-      //
-    }
-  };
-
-  useEffect(() => {
-    handleMyLocation();
-  }, []);
-
-  useEffect(() => {
-    handleSearch(city);
-  }, [unitTemperature]);
+  const { city, unit } = useContext(WeatherContext);
 
   return (
     <View style={[styles.wrapper]}>
-      <View onLayout={onLayout} style={{ height: viewHeight }}>
-        {!isSearch && <HeaderView onShowSearch={showSearch} onGeo={handleMyLocation} />}
+      <View style={[styles.box, styles.boxBottom]}>
+        <Text style={styles.city} numberOfLines={1}>{city}</Text>
+
+        <View style={styles.box}>
+          <Text style={styles.grad}>º</Text>
+          <Switch value={unit} options={TEMPERATURE_UNITS} onPress={() => {}} />
+        </View>
       </View>
-      <Location visible={isSearch} onSearch={handleSearch} />
+
+      <View style={styles.box}>
+        <LButton label="Сменить город" onPress={() => {}} />
+        <LButton label="Мое местоположение" Icon={<LocationSVG />} onPress={() => {}} />
+      </View>
     </View>
   );
 };

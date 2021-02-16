@@ -6,9 +6,7 @@ const styles = StyleSheet.create({
   wrapper: {
     position: 'relative',
   },
-});
 
-const stylesView = StyleSheet.create({
   box: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -35,19 +33,6 @@ const stylesView = StyleSheet.create({
     color: COLOR_WHITE,
     opacity: 0.4,
   },
-
-  button: {
-    fontSize: scale(15),
-    lineHeight: scale(18),
-    fontFamily: 'Lato',
-    color: COLOR_WHITE,
-    opacity: 0.6,
-  },
-
-  buttonWithIcon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
 });
 
-export { styles, stylesView };
+export { styles };

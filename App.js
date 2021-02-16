@@ -3,9 +3,10 @@ import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { WeatherState } from './src/context/WeatherState';
-import { Body } from './src/components/Body';
+import MainScreen from './src/screens/MainScreen';
 
 async function loadingApplication () {
+  // TODO: location permission, geoposition
   await Font.loadAsync({
     'PTSans': require('./assets/fonts/PTSans-Regular.ttf'),
     'Lato': require('./assets/fonts/Lato-Regular.ttf'),
@@ -25,7 +26,7 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <WeatherState>
-        <Body />
+        <MainScreen />
       </WeatherState>
     </>
   );
